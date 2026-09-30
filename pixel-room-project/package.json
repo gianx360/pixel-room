@@ -1,0 +1,17 @@
+{
+  "name": "pixel-room",
+  "version": "1.0.0",
+  "description": "Pixel Room image pixelator",
+  "scripts": {
+    "build": "esbuild app.js --bundle --splitting --format=esm --minify --outdir=dist"
+  },
+  "keywords": [],
+  "author": "Gianx labs",
+  "type": "commonjs",
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "heic-to": "^1.5.2",
+    "utif": "^3.1.0"
+  },
+  "private": true
+}
