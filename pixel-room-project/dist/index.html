@@ -1,28 +1,357 @@
 <!doctype html>
-<!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <title>Pixel Room — Image pixelator</title>
+  <title>Pixel Room — Image Pixelator</title>
 
   <meta
     name="description"
     content="Turn your images into pixels. Adjust the block size, compare with the original, and download your image. Processed privately on your device."
   >
 
+  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <!-- Apple / iPhone home screen icon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
+  <!-- Styles -->
   <link rel="stylesheet" href="/style.css">
 </head>
 
-<body><header><a class="brand" href="/" aria-label="Pixel Room home"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>PIXEL ROOM</a><span class="privacy">Images stay on your device</span></header>
-<main><div class="heading"><div><span class="eyebrow">THE IMAGE PIXELATOR</span><h1>A little less detail.<br>A lot more character.</h1></div><p>Drop an image. Find your pixels.<br>Make it yours.</p></div>
-<div class="editor"><section class="workspace" aria-label="Image preview"><div class="workspace-bar"><span id="file-label">YOUR CANVAS</span><button id="replace" class="text-button" hidden>Change image</button></div><div id="stage" class="stage"><canvas id="preview" hidden aria-label="Pixelated image preview"></canvas><div id="empty"><div class="upload-mark" aria-hidden="true">+</div><h2>Give it an image</h2><p>Drop a file here, or choose one below.</p><button id="choose" class="primary">Choose image</button><p class="formats">JPG, PNG, HEIC, TIFF, WebP, GIF, SVG & more<br>Up to 40 MB · Animated images use a still frame</p></div><div id="busy" hidden>Opening your image…</div></div><div class="workspace-footer"><span id="dimensions">READY WHEN YOU ARE</span><button id="compare" class="text-button" disabled aria-pressed="false">Show original</button></div></section>
-<aside><div class="panel-title"><span class="eyebrow">01 / MAKE IT BLOCKY</span><h2>Pixelation</h2></div><div class="amount"><label for="size">Block size</label><div><input id="size" type="number" min="1" max="512" value="24" aria-label="Block size in pixels"><span>px</span></div></div><input id="slider" type="range" min="1" max="512" value="24" aria-label="Pixelation block size"><div class="range-labels"><span>Fine</span><span>Chunky</span></div><div class="presets"><button data-size="8">Subtle</button><button data-size="24" class="active">Classic</button><button data-size="64">Bold</button></div><p class("hint">Bigger blocks, fewer details.<br>Adjust until it feels right.</p><div class("divider"></div><div class("panel-title"><span class("eyebrow">02 / TAKE IT WITH YOU</span><h2>Download</h2></div><label class("export-label") for("format")>Image format</label><select id("format")><option value("png")>PNG · best quality</option><option value("jpeg")>JPG · smaller file</option><option value("webp")>WebP · compact</option><option value("svg")>SVG · scalable blocks</option></select><button id("download") class("primary download") disabled>Download image <span aria-hidden("true")>↓</span></button><p id("export-note") class("export-note")>Original dimensions. PNG keeps transparency.</p><div id("message") role("status") aria-live("polite")></div></aside></div><input id("file") type("file") accept("image/*,.heic,.heif,.tif,.tiff,.avif,.bmp,.ico") hidden><footer><span>A fresh perspective, one pixel at a time.</span><span>Created by Gianx labs</span></footer></main><script type("module") src("/app.js")></script></body></html>
+<body>
+
+  <header>
+    <a class="brand" href="/" aria-label="Pixel Room home">
+      <span class="logo" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+      PIXEL ROOM
+    </a>
+
+    <span class="privacy">
+      Images stay on your device
+    </span>
+  </header>
+
+
+  <main>
+
+    <!-- INTRO -->
+    <div class="heading">
+
+      <div>
+        <span class="eyebrow">
+          THE IMAGE PIXELATOR
+        </span>
+
+        <h1>
+          A little less detail.<br>
+          A lot more character.
+        </h1>
+      </div>
+
+      <p>
+        Drop an image. Find your pixels.<br>
+        Make it yours.
+      </p>
+
+    </div>
+
+
+    <!-- EDITOR -->
+    <div class="editor">
+
+      <!-- IMAGE WORKSPACE -->
+      <section class="workspace" aria-label="Image preview">
+
+        <div class="workspace-bar">
+
+          <span id="file-label">
+            YOUR CANVAS
+          </span>
+
+          <button
+            id="replace"
+            class="text-button"
+            type="button"
+            hidden
+          >
+            Change image
+          </button>
+
+        </div>
+
+
+        <div id="stage" class="stage">
+
+          <canvas
+            id="preview"
+            hidden
+            aria-label="Pixelated image preview"
+          ></canvas>
+
+
+          <div id="empty">
+
+            <div
+              class="upload-mark"
+              aria-hidden="true"
+            >
+              +
+            </div>
+
+            <h2>Give it an image</h2>
+
+            <p>
+              Drop a file here, or choose one below.
+            </p>
+
+            <button
+              id="choose"
+              class="primary"
+              type="button"
+            >
+              Choose image
+            </button>
+
+            <p class="formats">
+              JPG, PNG, HEIC, TIFF, WebP, GIF, SVG & more
+              <br>
+              Up to 40 MB · Animated images use a still frame
+            </p>
+
+          </div>
+
+
+          <div id="busy" hidden>
+            Opening your image…
+          </div>
+
+        </div>
+
+
+        <div class="workspace-footer">
+
+          <span id="dimensions">
+            READY WHEN YOU ARE
+          </span>
+
+          <button
+            id="compare"
+            class="text-button"
+            type="button"
+            disabled
+            aria-pressed="false"
+          >
+            Show original
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONTROLS -->
+      <aside>
+
+        <!-- PIXELATION -->
+        <div class="panel-title">
+
+          <span class="eyebrow">
+            01 / MAKE IT BLOCKY
+          </span>
+
+          <h2>Pixelation</h2>
+
+        </div>
+
+
+        <div class="amount">
+
+          <label for="size">
+            Block size
+          </label>
+
+          <div>
+
+            <input
+              id="size"
+              type="number"
+              min="1"
+              max="512"
+              value="24"
+              aria-label="Block size in pixels"
+            >
+
+            <span>px</span>
+
+          </div>
+
+        </div>
+
+
+        <input
+          id="slider"
+          type="range"
+          min="1"
+          max="512"
+          value="24"
+          aria-label="Pixelation block size"
+        >
+
+
+        <div class="range-labels">
+          <span>Fine</span>
+          <span>Chunky</span>
+        </div>
+
+
+        <div class="presets">
+
+          <button type="button" data-size="8">
+            Subtle
+          </button>
+
+          <button
+            type="button"
+            data-size="24"
+            class="active"
+          >
+            Classic
+          </button>
+
+          <button type="button" data-size="64">
+            Bold
+          </button>
+
+        </div>
+
+
+        <p class="hint">
+          Bigger blocks, fewer details.<br>
+          Adjust until it feels right.
+        </p>
+
+
+        <div class="divider"></div>
+
+
+        <!-- DOWNLOAD -->
+        <div class="panel-title">
+
+          <span class="eyebrow">
+            02 / TAKE IT WITH YOU
+          </span>
+
+          <h2>Download</h2>
+
+        </div>
+
+
+        <label
+          class="export-label"
+          for="format"
+        >
+          Image format
+        </label>
+
+
+        <select id="format">
+
+          <option value="png">
+            PNG · best quality
+          </option>
+
+          <option value="jpeg">
+            JPG · smaller file
+          </option>
+
+          <option value="webp">
+            WebP · compact
+          </option>
+
+          <option value="svg">
+            SVG · scalable blocks
+          </option>
+
+        </select>
+
+
+        <button
+          id="download"
+          class="primary download"
+          type="button"
+          disabled
+        >
+          Download image
+          <span aria-hidden="true">↓</span>
+        </button>
+
+
+        <p
+          id="export-note"
+          class="export-note"
+        >
+          Original dimensions. PNG keeps transparency.
+        </p>
+
+
+        <div
+          id="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+
+      </aside>
+
+    </div>
+
+
+    <!--
+      File picker.
+
+      Deliberately NOT using the HTML "hidden" attribute.
+      This improves compatibility with Safari/iOS when the
+      Choose Image button programmatically opens the picker.
+    -->
+    <input
+      id="file"
+      class="file-input"
+      type="file"
+      accept="image/*,.heic,.heif,.tif,.tiff,.avif,.bmp,.ico"
+      aria-label="Choose an image"
+    >
+
+
+    <footer>
+
+      <span>
+        A fresh perspective, one pixel at a time.
+      </span>
+
+      <span>
+        Created by Gianx labs
+      </span>
+
+    </footer>
+
+  </main>
+
+
+  <!-- Pixel Room -->
+  <script
+    type="module"
+    src="/app.js"
+  ></script>
+
+</body>
+
+</html>
